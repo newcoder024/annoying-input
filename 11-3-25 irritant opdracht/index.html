@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>les 11 maart 2025</title>
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .irritant{
+            position: absolute;
+            left: 50%;
+            right: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            padding: 10px;
+            width: 220px;
+        }
+        button{
+            background-color: gold;
+            padding: 0.5rem;
+            width: 6rem;
+            border-radius: 15px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <label for="irritant"><h2>probeer je naam in te vullen...</h2></label><br>
+    <input type="text" id="irritant" class="irritant" placeholder="Type hier je naam..." size="10"><br><br>
+    <button onclick="geefFoutmelding()">Send</button><br><br>
+
+    <br><input type="text" name="irritant2" class="irritant" id="irritant2" placeholder="Probeer het nog eens?" style="display: none;"><br><br>
+
+    <audio id="audio" src="short-alarm.mp3"></audio>
+<script>
+    let input = document.getElementById("irritant");
+    let input2 = document.getElementById("irritant2")
+    let originalLeft = input.style.left;
+    let originalTop = input.style.top;
+    let annoyingAudio = document.querySelector("#audio");
+
+    // inputveld rent weg functie met event listener 
+    function beweegInput(){
+        input.style.left = Math.random() * window.innerWidth + "px";
+        input.style.top = Math.random() * window.innerHeight + "px";
+    }
+    input.addEventListener("mouseover", beweegInput); 
+
+        // het bewegen stopt na een paar seconden met timeout
+    function startBewegen() {
+        intervalId = setInterval(beweegInput, 100);
+            
+        setTimeout(function() {
+            clearInterval(intervalId);
+            input.style.left = originalLeft;
+            input.style.top = originalTop;
+        }, 10000);
+    }
+
+    /*   // text verandert automatisch functie met input event
+    function veranderText() {
+        const vervangwoorden = ["Poedel", "Banaan", "Snorhaar", "404Error", "Ik weet het niet :("];
+        input2.value = vervangwoorden[Math.floor(Math.random() * vervangwoorden.length)];
+    }
+    input2.addEventListener("input", veranderText); */
+
+        // onlogische foutmelding functie met focus event
+    function geefFoutmelding(){
+        const foutmeldingen = [
+            "Je naam mag geen cijfers bevatten!",
+            "Ongeldige tekens gebruikt (ik zeg niet welke)",
+            "Sorry, je naam is te basic",
+            "Wat is DAT nou weer voor naam?? Probeer opniew"
+        ]
+        alert(foutmeldingen[Math.floor(Math.random() * foutmeldingen.length)]);
+    }
+
+        //inputveld verwijnt na 5 seconden
+       // Select the input element (Make sure it has an ID in your HTML)
+
+    function verwijderInput() {
+        if (input) {
+            input.style.display = "none"; 
+        }
+        alert("Te laat! Je kans is voorbij :(");
+
+        setTimeout(secondAppear, 2000); //na 2 seconden word secondAppear() uitgevoerd
+    }
+
+    // alerts voor nadat de eerste input word verwijderd.
+    function secondAppear() {
+        alert("...");
+
+        setTimeout(function(){
+            alert("Kijk niet zo naar me..");
+        }, 2000)
+
+        setTimeout(function(){
+            alert("Okay.. je mag het nog een keer proberen...");
+
+            secondInput();
+        }, 3000)
+
+    } setTimeout(verwijderInput, 5000); 
+
+    function secondInput(){
+        input2.style.display = "block";
+    } // second input appears to try again
+
+
+    //een geluid speelt af wanneer je een key in typt.
+    function annoyingSound(){
+        document.addEventListener("keydown", function(){
+            annoyingAudio.play();
+        })
+    } annoyingSound()
+
+     // functie waar elke keer als je een letter typt, je een alert krijgt (heeel irritant)
+    function keyAlert(){
+        document.addEventListener("keydown", function() { //basically; wnr je een key pressed gebeurt een functie 
+            alert("Weet je het heel zeker?");
+        })
+    }keyAlert(); 
+
+    </script>
+</body>
+</html>
